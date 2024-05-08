@@ -36,16 +36,3 @@
     transform: rotate(360deg);
   }
 }
-.App{
-  display: flex;
-  justify-content: space-around;
-
-}
-.users{
-  width: 50vw;
-  display: flex;
-  justify-content: space-around;
-}
-.posts{
-  width: 50vw;
-}

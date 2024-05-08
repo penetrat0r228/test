@@ -1,26 +1,32 @@
-import React, {useState} from "react";
-import './App.css';
-import PostsComponent from "./components/posts/PostsComponent";
-import {getAllPostsOfSingleUser} from "./services/postService/post.api.service";
-import {IPostModel} from "./models/IPostModel";
-import UsersComponent from "./components/users/UsersComponent";
+import React, { useState} from "react";
+
+interface IState {
+    value: boolean;
+}
+
+const useToggle = (): [boolean, () => void, () => void] => {
+    const [changer, setChanger] = useState<IState>({ value: false });
+
+    const True = () => {
+        setChanger({ value: true });
+    };
+
+    const False = () => {
+        setChanger({ value: false });
+    };
+
+    return [changer.value, True, False];
+};
 
 
 const App = () => {
-    const [posts, setPosts] = useState<IPostModel[]>([]);
-
-    const lift = (userId: number) => {
-        getAllPostsOfSingleUser(userId).then((data) => {
-
-            // @ts-ignore
-            setPosts(data.posts);
-        })
-    }
+    const [value, True, False] = useToggle();
 
     return (
-        <div className='App'>
-            <div className={"users"}><UsersComponent lift={lift}/></div>
-            <div className={"posts"}><PostsComponent posts={posts}/></div>
+        <div>
+            <h2>{value.toString()}</h2>
+            <button onClick={True}>True</button>
+            <button onClick={False}>False</button>
         </div>
     );
 };
